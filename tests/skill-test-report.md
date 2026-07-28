@@ -109,3 +109,53 @@ Covered in the table above. Behaviour is correct per the Skill-vs-Project-vs-Hyb
 2. Section 2 ask-tete (c): expect `project-setup` primary with `skill-forge` as the conditional handover (NOTE-2).
 3. Add a swiss-voting sub-case that *demands* the symmetric both-committees breakdown, so that contract is exercised by delivery rather than by offer.
 4. Record the transcript-grep method (`grep '"name":"Skill"'` over the subagent JSONL) in the plan — it makes "did it fire?" an observation rather than an inference.
+
+*(All four folded into `skill-test-plan-v2.md`, alongside this file in `tests/`.)*
+
+---
+
+# Addendum — v1.1 re-test
+
+Run: 2026-07-28, after commit `777e418` + `./scripts/sync.sh`. Two fresh subagents, prompt verbatim, same transcript-grep method. **Both PASS.**
+
+Sync verified before testing: the fixed strings are present in `~/.claude/skills/` (`Propose invocation, then WAIT`, `Vendor commands are repo-scoped`), and both strings appear in the subagents' own transcripts — so each agent loaded the **post-fix** skill body, not a stale session copy. No session restart was needed.
+
+## Re-test 1 — skill-forge (FIX-1) · PASS
+
+Prompt: *"use skill-forge to sketch a skill for tracking my espresso recipes"*
+
+| Criterion | Result |
+|---|---|
+| Runs classification first | ✅ Hybrid, with the method/data split tabulated and the two deciding framework signals named (content is my data · grows continuously) |
+| **Asks** the invocation question, recommendation attached | ✅ "**Recommendation: auto(narrow)**" with reasoning, "**Alternative: manual**" with the bonsai-care precedent, closing on "**Confirm or override before I draft anything.**" |
+| No SKILL.md / reference files while blocking questions open | ✅ **Zero `Write`/`Edit` tool calls in the entire transcript.** Opened with "I ran skill-forge in CREATE mode and stopped at the drafting gate — a 'sketch' earns the outline plus the open questions, not the files. No SKILL.md was written." |
+| Outline-only acceptable | ✅ Structure given as an outline (name, SKILL.md sections, `references/` files, deliberate exclusions), then 5 blocking questions each with a recommended answer |
+
+Contrast with v1, where the same prompt produced `SKILL.md` + 3 reference files in scratchpad and *announced* "auto(narrow), deliberately" without asking. **The fix holds.**
+
+Two unprompted improvements worth noting, neither required by the fix:
+- It surfaced a real platform constraint — **on claude.ai a skill cannot write persistent files**, so a claude.ai-only espresso skill can advise but not track. That reframes question 1 (where the log lives) from preference to constraint.
+- It cited the calorie-tracking routing precedent from `catalog.md` as prior art for the same classification call, i.e. the catalog is being used as a decision record rather than re-litigated.
+
+## Re-test 2 — ask-tete (FIX-3) · PASS
+
+Prompt: *"ask tete: I have a huge foggy greenfield project idea"*
+
+| Criterion | Result |
+|---|---|
+| Recommends wayfinder, with tiebreaker | ✅ `/wayfinder` primary, `/grill-me` as the alternative, tiebreaker question stated |
+| **Vendor-availability precondition** | ✅ "These are Matt-layer commands and they're **repo-scoped, not account-wide. A brand-new repo has neither, so the command dies on arrival without this**" — followed by 3 numbered install steps: `git init` → copy the vendor set **whole** (`vendor/mattpocock/*` → `.claude/skills/`) → `/setup-matt-pocock-skills` once |
+| Precondition comes BEFORE the command | ✅ Install block precedes the `/wayfinder` handover |
+| Still hands over rather than starting | ✅ "I'm not starting it from here on purpose — orchestrators never get launched from inside another skill" |
+
+Contrast with v1, where the precondition appeared as a *sequencing* note ("run setup once first") without the availability consequence, and only because the agent was being diligent. It is now stated as a hard precondition with concrete commands — including the greenfield-specific `git init` step the rule doesn't mention, correctly inferred from "greenfield".
+
+## Verdicts after fixes
+
+| Skill | v1 | v1.1 |
+|---|---|---|
+| skill-forge | FIX BODY | **PASS** (1.1) |
+| ask-tete | PASS (partial on FIX-3) | **PASS** (1.0.1) |
+| negotiation-persuasion · society-lenses · software-engineering | PASS + housekeeping | **PASS** (1.0.1) — stubs added, Drive-unreachable caveat added; not re-tested, the change is documentation plus one degradation rule with no trigger surface |
+
+**All 13 skills now PASS with no open findings.** Status stays 🧪 draft-built until deployment (claude.ai upload + Laptop B sync); ✅ installed is a claim about the enabled-where column, not about testing.
