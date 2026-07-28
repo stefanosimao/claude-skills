@@ -20,7 +20,7 @@ The complement to `/code-review` (vendored verbatim): four axes his two don't co
 
 **2. Defects** — bugs independent of the spec ("correct vs spec but broken"): unhandled error paths, edge cases (empty/null/zero/overflow/encoding/timezone), concurrency and races on shared state, resource leaks (unclosed handles, unbounded growth, missing finally/defer), off-by-ones, assertion and invariant gaps. For diffs touching untested legacy code: seam quality, characterization-tests-first (Feathers). Grounding: McConnell (defensive programming, error handling), Hunt & Thomas (assertions, resource balance). **Flag suspects; never chase them** — diagnosis belongs to `/diagnosing-bugs`.
 
-**3. Performance** — only where the diff touches data or hot paths: N+1 queries, algorithmic complexity on hot paths, unbounded memory growth, missing pagination/streaming on data-returning changes, chatty I/O in loops. Every flag passes a back-of-envelope test first (Bentley) — no micro-optimization theater. Grounding: Kleppmann for data-touching changes.
+**3. Performance** — only where the diff touches data or hot paths: N+1 queries, algorithmic complexity on hot paths, unbounded memory growth, missing pagination/streaming on data-returning changes, chatty I/O in loops. Every flag passes a back-of-envelope test first (Bentley) — no micro-optimization theater. Grounding: Kleppmann for data-touching changes (systems/IO), Skiena for compute-side complexity and container choice (state it in dominance-order terms, not vibes).
 
 **4. Tests** — does the diff ARRIVE with adequate tests: changed behavior covered at the right seam, regression test present when the diff fixes a bug, test smells (over-mocking, testing implementation not behavior, tautological assertions), test size/flakiness risk (*SWE at Google*), Python-specific smells (Percival, Molina). Reviews the diff's tests; **never re-teaches the TDD loop** — that's `/tdd`.
 
@@ -30,7 +30,7 @@ No Fowler smells (his Standards axis owns them). No spec conformance (his Spec a
 
 ## Fetch cascade
 
-Drive: `Skill-Library/extra-code-review/` — owned: `security-engineering`, `the-web-application-hackers-handbook`, `hacking-apis`, plus dedupe copies `refactoring`, `working-effectively-with-legacy-code`; Referenced 📎 (summary local, book in software-engineering/): `code-complete`, `the-pragmatic-programmer`, `designing-data-intensive-applications`, `programming-pearls`, `software-engineering-at-google`, `test-driven-development-with-python`, `crafting-test-driven-software-with-python`. Cite chapters from these maps.
+Drive: `Skill-Library/extra-code-review/` — owned: `security-engineering`, `the-web-application-hackers-handbook`, `hacking-apis`, plus dedupe copies `refactoring`, `working-effectively-with-legacy-code`; Referenced 📎 (summary local, book in software-engineering/): `code-complete`, `the-pragmatic-programmer`, `designing-data-intensive-applications`, `the-algorithm-design-manual`, `programming-pearls`, `software-engineering-at-google`, `test-driven-development-with-python`, `crafting-test-driven-software-with-python`. Cite chapters from these maps.
 
 ## Open items (from the gap analysis, verify in Phase-1 testing)
 

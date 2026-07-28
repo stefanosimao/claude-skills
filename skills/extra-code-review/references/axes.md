@@ -18,9 +18,12 @@ Per trust-boundary type touched by the diff:
 - **Contracts:** assertions/guards for "can't happen" states (crash early beats corrupt late)? function honors its name (no surprise side effects)?
 - **Legacy contact:** diff touches untested existing code → is there a seam to test through; were characterization tests written BEFORE the change?
 
-## PERFORMANCE (Kleppmann: DDIA · Bentley: Programming Pearls)
+## PERFORMANCE (Kleppmann: DDIA — systems/IO · Skiena: Algorithm Design Manual — compute · Bentley: Programming Pearls — estimation)
 - **N+1:** loop bodies with queries/API calls? missing eager-load/batch/join?
-- **Complexity:** nested iteration over unbounded collections on a hot path? accidental O(n²) via repeated scans/`in` on lists? sort inside loop?
+- **Complexity (Skiena Ch 2):** nested iteration over unbounded collections on a hot path? accidental O(n²) via repeated scans/`in` on lists? sort inside loop? State the change in dominance-order terms (n² → n log n → n), not vibes.
+- **Container vs. access pattern (Skiena Ch 3 + catalog §15.1–15.2):** linear scan where a dict/hash belongs; list where a priority queue belongs; repeated membership tests on a list. Calibration: the *wrong* structure is disastrous, the *best* structure rarely matters — flag the disaster, don't bikeshed the optimum.
+- **Recomputation (Skiena Ch 10):** recursion or loop recomputing the same subresult — memoization is usually a one-line fix; a left-to-right ordering over the data means a real DP is available.
+- **Reinvented classics (Skiena §8.7 + catalog Ch 18):** hand-rolled traversal/path-finding/scheduling logic that is a named algorithm under another name — look it up before reviewing the implementation.
 - **Data volume:** unbounded SELECT/fetch (no LIMIT/pagination/streaming)? full table load to filter in memory? response payloads unbounded?
 - **Memory:** collections that only grow (caches without eviction)? large objects retained by closures/listeners?
 - **Back-of-envelope:** for any data-touching change, demand the estimate: rows × bytes × frequency — does it survive 10x? indexes present for new query predicates?
