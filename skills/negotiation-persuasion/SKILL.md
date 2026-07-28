@@ -30,3 +30,5 @@ Every draft variant carries an explicit strategy label and one line on the trade
 ## Fetch cascade
 
 Drive: `Skill-Library/negotiation-persuasion/` — key `_summaries/` slugs: `never-split-the-difference` (the full toolkit, chapter-mapped, IT terms alongside), `influence` (le armi della persuasione — the six principles with reliability caveats), `crucial-conversations`, `the-48-laws-of-power` / `the-laws-of-human-nature` / `the-33-strategies-of-war` (defense-awareness framing — the summaries classify each as technique-to-apply vs pattern-to-defend-against), `how-to-win-friends-and-influence-people`, the two Berckhan volumes (defense anchor), `games-people-play`, `interaction-ritual`, `la-retorica`, `the-art-of-public-speaking`. Search by slug; full book only when the summary points deeper (e.g. a specific Voss script family).
+
+If Drive search fails, say the grounding layer is unavailable and answer from general knowledge with that caveat — never invent chapter citations.

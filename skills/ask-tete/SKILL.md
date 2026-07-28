@@ -50,4 +50,5 @@ Idea → ship, the route most feature work travels:
 
 - Recommend at most 2 candidates; if two genuinely compete, name the tiebreaker question rather than listing both neutrally.
 - Never start an orchestrator from here, even if asked — hand over the command and say why (clean context beats convenience).
+- **Vendor commands are repo-scoped — state the precondition with every one.** This skill is account-wide; the Matt layer is not. A `/command` from the Matt set exists ONLY in a repo where `vendor/mattpocock/` was copied whole into `.claude/skills/` AND `/setup-matt-pocock-skills` has been run once there. When the current repo may lack either, say so and give the install step BEFORE the command — otherwise the handover is dead on arrival.
 - The catalog's source of truth is `catalog.md` in the claude-skills repo; when unsure whether a skill exists or is enabled on this surface, say so rather than guessing.

@@ -14,10 +14,11 @@ The skill that builds skills. Wraps Anthropic's skill-creator loop with my house
 ## The loop (CREATE)
 
 1. **Capture intent.** Interview briefly: what it does, when it should fire, what output looks like, which surface(s) it lives on. Then apply the Skill-vs-Project-vs-Hybrid framework (project-setup owns it) — confirm a skill is even the right container before drafting.
-2. **Decide invocation FIRST** — it shapes the description:
+2. **Propose invocation, then WAIT** — it shapes the description, and it is the user's call, never the forge's. Never decide it unilaterally: state one recommendation with its reasoning plus the alternative, then stop. E.g. *"I'd propose auto(narrow) — the trigger is a recognizable domain topic the model spots better than you do. Alternative: manual, if firing uninvited would disrupt. Confirm or override before I draft."* The menu below is the catalog's invocation policy; the user picks from it.
    - *Auto / model-invoked*: the trigger is a recognizable domain or reusable discipline the model spots better than the user. Description written PUSHY: front-load the leading word, one trigger per genuinely distinct branch, no synonym padding.
    - *Manual / user-invoked*: heavy multi-step orchestrators, or budget-demoted skills. Description TERSE — a one-line human-facing summary ending "Invoke by name." The user (or ask-tete) is the index.
    - Hierarchy rule: orchestrators may invoke disciplines, never other orchestrators.
+   - **Drafting gate:** produce no SKILL.md and no reference files while any intake question you yourself flagged as blocking stays unanswered — invocation mode included. A "sketch" request earns an outline of the intended structure, never the artifacts themselves.
 3. **Draft** SKILL.md per the conventions (references/conventions.md): <500 lines, progressive disclosure into `references/`, completion criteria on steps, leading words over restatements, positive phrasing over prohibitions, scripts over prose where deterministic, hooks over prose where enforcement must be certain.
 4. **Test.** Claude Code: spawn test subagents against realistic prompts (should-fire, shouldn't-fire, and edge phrasings); run the description-optimization loop on auto skills. claude.ai: lighter inline sanity checks. Prefer Claude Code for anything auto-invoked.
 5. **Review & iterate** — the user judges, forge revises. Repeat 3–5 until the failing prompts pass.

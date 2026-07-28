@@ -34,3 +34,5 @@ Interpretation, not news lookup: given an event, policy, or "why is country X do
 ## Fetch cascade
 
 Drive: `Skill-Library/economics/` + `politics-geopolitics/` — key slugs: `knowledge-and-decisions`, `economics-the-users-guide`, `what-money-cant-buy`, `the-changing-world-order`, `zero-to-one`, `essentials-of-game-theory`, `the-lessons-of-history`, `sapiens`, `homo-deus`, `21-lessons-for-the-21st-century`, `collapse`, `prisoners-of-geography`, `the-age-of-surveillance-capitalism`, `ur-fascism`, `storia-politica-del-mondo`, `the-age-of-ai`. Fetch a summary when a lens needs its source's full apparatus; full book only when the summary's map points deeper.
+
+If Drive search fails, say the grounding layer is unavailable and answer from general knowledge with that caveat — never invent chapter citations.

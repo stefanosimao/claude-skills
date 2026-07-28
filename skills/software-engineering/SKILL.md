@@ -30,3 +30,5 @@ The all-around consultant, callable at any stage of the pipeline: check work aga
 ## Fetch cascade
 
 Drive: `Skill-Library/software-engineering/` — 20 works summarized; `_sources.md` has exact filenames plus Free-online links (classic *SRE*, *Building Secure and Reliable Systems*, *SRE Workbook* — summarize-on-demand). Slugs are kebab-case canonical titles (`a-philosophy-of-software-design`, `designing-data-intensive-applications`, `code-complete`, …). Search by slug; verify by content, never modifiedTime.
+
+If Drive search fails, say the grounding layer is unavailable and answer from general knowledge with that caveat — never invent chapter citations.
