@@ -1,0 +1,7 @@
+# Audit — teach (read-understand-gap) · @ ed37663 · 2026-07-28
+
+**What:** Stateful multi-session teaching workspace in the CURRENT DIRECTORY: MISSION.md (why learn this), RESOURCES.md (high-trust sources; "never trust parametric knowledge"), lessons/*.html (short, ZPD-scoped, beautiful, self-contained), reference/*.html (durable cheat-sheets), learning-records/*.md (ADR-analog for learning), assets/ (reusable components incl. shared stylesheet), NOTES.md. Philosophy: knowledge (acquisition, minimize difficulty) vs skills (retention, desirable difficulty: retrieval/spacing/interleaving) vs wisdom (delegate to communities). 4 format files. `disable-model-invocation: true`.
+**Deps:** none external; filesystem only. Directory-scoped state.
+**Security:** clean — writes only within workspace; opens lesson files via CLI (benign).
+**Gaps/notes for coexistence with study:** (1) teach = interactive lesson production in a workspace; study = curriculum/librarian over MY canon — study should REFERENCE teach's retention science (identical to Make It Stick/Dunlosky: retrieval, spacing, interleaving) but never duplicate its workspace mechanics. (2) study can hand off: "for an interactive course on X, run /teach in a dedicated folder; I'll prefill RESOURCES.md from the Skill-Library." That's the clean seam between them. (3) teach's RESOURCES.md ethos matches our fetch cascade — my library IS a high-trust resource set.
+**Audit outcome:** clean; no complement — but a documented handoff seam to study (encoded in study's SKILL.md).

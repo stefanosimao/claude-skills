@@ -33,4 +33,4 @@
 
 **Scope rule:** repo-scoped or manual only — NEVER swept into ~/.claude/skills by sync.sh (which only reads skills/). To use in a work repo: `cp -r vendor/mattpocock/<name> <repo>/.claude/skills/`
 
-**Audit status:** read-understand-gap pass pending per skill (Phase 1). Gaps feed Layer-2 complements. code-review already audited → extra-code-review-gap-analysis.md.
+**Audit status:** COMPLETE 22/22 (2026-07-28) — one doc per skill in vendor/audits/. Gap harvest: code-review → extra-code-review (built); tdd tests-axis gap → extra-code-review axis 4; codebase-design canon gap → software-engineering (built); teach↔study seam documented; ADR three-condition test adopted into decisions-log discipline. No other complement material found.

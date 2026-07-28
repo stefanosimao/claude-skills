@@ -1,0 +1,7 @@
+# Audit — diagnosing-bugs (read-understand-gap) · @ ed37663 · 2026-07-28
+
+**What:** 6-phase diagnosis discipline for hard bugs/perf. Phase 1 IS the skill: build a tight, red-capable, deterministic, fast, agent-runnable feedback loop (10 construction methods, incl. bisection harness, differential loop, HITL bash script as last resort); explicit completion criterion (one already-run command, pasted). No loop → no hypotheses (stop and ask for artifacts/access). P2 reproduce+minimise (every remaining element load-bearing). P3 3–5 RANKED FALSIFIABLE hypotheses shown to user. P4 instrument one variable at a time, tagged [DEBUG-xxxx] logs, perf = measure-then-bisect. P5 regression test BEFORE fix but only at a CORRECT seam ("no correct seam exists" is itself a finding → architecture flag). P6 cleanup checklist + post-mortem → hand architectural causes to /improve-codebase-architecture. Model-invoked.
+**Deps:** scripts/hitl-loop.template.sh (audited: clean, interactive-only); improve-codebase-architecture (handoff); CONTEXT.md soft.
+**Security:** clean.
+**Gaps/notes:** (1) Superpowers' debugging discipline comparison (dossier enrichment note): his loop-first doctrine is already the strongest version; enrichment pass can wait. (2) Overlap guard for extra-code-review: we FLAG defect suspects on a diff, never run this loop — chase belongs here.
+**Audit outcome:** clean; no complement material.

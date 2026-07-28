@@ -1,0 +1,7 @@
+# Audit — codebase-design (read-understand-gap) · @ ed37663 · 2026-07-28
+
+**What:** The shared design VOCABULARY (use terms exactly): module, interface (everything a caller must know — not just types), implementation, depth (leverage per unit of interface — explicitly REJECTS Ousterhout's line-ratio framing), seam (Feathers), adapter, leverage (callers), locality (maintainers). Principles: depth is a property of the interface; deletion test; the interface is the test surface; one adapter = hypothetical seam, two = real. Testability rules (accept deps, return results, small surface). Two deep-dives: DEEPENING.md, DESIGN-IT-TWICE.md (parallel sub-agents design the interface radically differently, compare on depth/locality/seam). Model-invoked (design vocabulary needs).
+**Deps:** consumed by improve-codebase-architecture, tdd (seams), domain-modeling adjacency.
+**Security:** clean.
+**Gaps/notes for software-engineering complement:** his trio is opinionated Ousterhout-derived-but-forked doctrine. Our complement adds what he deliberately doesn't carry: the WIDER canon (GoF patterns, Fowler refactoring vocabulary, Kleppmann data thinking, McConnell construction) with chapter citations — grounding and breadth, never a competing vocabulary. Where terms collide (boundary/component), OUR skill defers to his glossary inside pipeline work.
+**Audit outcome:** clean; canon-grounding gap → already in software-engineering's spec, with a defer-to-his-vocabulary rule added.
