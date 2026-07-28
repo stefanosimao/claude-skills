@@ -208,3 +208,65 @@ The listing is doing exactly the job it was added for — making enabled-where d
 2. **Correct the sync** — if those three are deliberately claude.ai-only, `sync.sh` should skip them rather than the catalog being wrong.
 
 Not changed; the answer depends on intent, not on the code.
+
+---
+
+# Addendum — Decision 30: promoted vendor skills (2026-07-28)
+
+**Verdict: PASS.** First test of a vendor skill running outside a repo that has the vendor set installed.
+
+## What changed
+
+Vendor scope became a per-skill decision (catalog Decision 30). Six skills — `teach`, `handoff`, `grilling`, `grill-me`, `resolving-merge-conflicts`, `diagnosing-bugs` — are now synced to personal Claude Code scope by `scripts/sync.sh`'s `PROMOTED_VENDOR` list. The other 16 remain repo-scoped. Verbatim and pin rules untouched; only scope moved.
+
+Standalone-ness was re-verified before promoting rather than taken from the audits on trust: grep across all six for `docs/agents`, `tracker`, and `setup-matt-pocock` returned zero hits. The user/model invocation split in the catalog was likewise read off each skill's frontmatter (`disable-model-invocation: true` on teach / handoff / grill-me) rather than assumed.
+
+## Sync verification
+
+`./scripts/sync.sh` → `Synced 13 skill(s) + 6 promoted vendor skill(s)`. `ls ~/.claude/skills/` = **19**, all six promoted folders carrying a `SKILL.md`.
+
+## Test — grilling fires outside a vendor-installed repo
+
+Prompt, given verbatim and alone to a fresh subagent: *"I'm planning a 3-week sabbatical and want my plan stress-tested — grill me."*
+
+**Firing measured by transcript grep**, per the standing method:
+
+```
+$ grep -o '"name":"Skill","input":{"skill":"[^"]*"' agent-adbf067b26044cd7c.jsonl
+   1 "name":"Skill","input":{"skill":"grilling"
+```
+
+Before the promotion this could only have fired inside a repo with `vendor/mattpocock/` copied into `.claude/skills/`. It fired from personal scope, install-free — which is the whole point of Decision 30.
+
+**Interview discipline held.** One question asked, not a battery. A recommended answer supplied with it ("pick exactly one primary purpose and demote the others"), plus a tiebreaker question for the case where the user can't choose. It acted on nothing and asked before proceeding. Signature phrases from the skill body appear in the transcript: `recommended answer` ×4, `decision tree` ×3, `shared understanding` ×6 — the vendored body loaded, not a general-knowledge imitation of an interview.
+
+**Unprompted bonus, worth recording:** it checked the calendar before asking anything and opened with the strongest possible grilling move — *"No sabbatical exists on your calendar… whatever the plan is, it currently lives only in your head."* Looking up facts itself and reserving questions for genuine *decisions* is exactly the contract the skill states.
+
+## install-vendor.sh — smoke test, 7/7
+
+| Case | Result |
+|---|---|
+| shared install into a throwaway repo | 22/22 skills, exit 0 |
+| non-git target | refused |
+| no target argument | refused |
+| partial install (2 folders removed) | refused at 20/22; `--force` restored 22 |
+| `--private`, run twice | exactly 3 exclude patterns, no duplicates, `git status` clean |
+| one byte appended to a vendored `SKILL.md` | caught by hash: *"'tdd' SKILL.md hashes 46ea5aaa06b9, VENDOR-PIN.md says 5363bb277567"* |
+| vendored folder deleted | caught by the reverse check |
+
+Both drift cases ran against an isolated copy of the vendor tree in the scratchpad; the real `vendor/` was never modified (`git status vendor/` empty throughout). In every failure case nothing was written to the target — guards run before the first copy.
+
+**Two deviations from the delivered script, both forced:**
+
+1. `mapfile` replaced with a portable read loop. macOS ships bash 3.2, where `mapfile` does not exist — the script would have died at the collection step, *before reaching any of its own guards*.
+2. Pin check upgraded from name-presence to sha256 comparison, per the script's own maintenance note. `VENDOR-PIN.md` carries `sha256 (first 12)` of every `SKILL.md`, and `shasum -a 256 … | cut -c1-12` reproduces them exactly. Name-presence would pass a skill edited in place — the precise drift the verbatim rule exists to catch. Verified in both directions (disk→pin and pin→disk).
+
+## Prior finding closed
+
+The enabled-where discrepancy raised in the v1.0.2 addendum was resolved as **option 1**: `bonsai-care`, `settimana-enigmistica` and `swiss-voting` are marked **CC ☑ + ai ☑`**. "claude.ai-primary" survives as a *usage* note — where you actually reach for them — not a restriction. `scripts/sync.sh` stays deliberately dumb: it syncs the folder and never reads the catalog.
+
+## Open items
+
+- **`/context` measurement pending** — must be run by the user; the build-log entry says *pending* rather than carrying a fabricated number. Expected delta is low hundreds of tokens: only the six frontmatter descriptions load at rest (~600 characters), not the ~21 KB of bodies.
+- **`git-guardrails-claude-code`** — deliberately not promoted. Separate one-time action: run it once and install its PreToolUse hook globally. Deterministic enforcement beats a resident skill description.
+- **Deployment unchanged for claude.ai:** the vendor layer is Claude Code only, promoted six included. Nothing to upload there from this patch beyond ask-tete 1.0.3.
