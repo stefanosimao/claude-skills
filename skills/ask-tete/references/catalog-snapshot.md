@@ -1,4 +1,4 @@
-Snapshot of catalog.md @ 60b916e — regenerate on catalog changes (skill-forge step 6). Stamp = catalog.md's last-touching commit, not HEAD.
+Snapshot of catalog.md @ 65b9379 — regenerate on catalog changes (skill-forge step 6). Stamp = catalog.md's last-touching commit at generation time, not HEAD; the shipping commit is necessarily one later.
 
 Fallback listing only, for when the claude-skills repo is unreachable. Not the catalog: no build log, no wishlist, no ledgers. Status is 🧪 draft-built unless marked otherwise — tested and passing, not yet deployed everywhere.
 
