@@ -1,6 +1,6 @@
 # claude-skills
  
-Source of truth for my Claude Skills. Designed in the **Skills Hub** claude.ai project; distributed from here to every surface. Two layers: **my skills** in `skills/` (synced to the personal budget), and **Matt Pocock's engineering pipeline** in `vendor/mattpocock/` (verbatim, version-pinned @ `ed37663`, repo-scoped only — never synced account-wide).
+Source of truth for my Claude Skills. Designed in the **Skills Hub** claude.ai project; distributed from here to every surface. Two layers: **my skills** in `skills/` (synced to the personal budget), and **Matt Pocock's engineering pipeline** in `vendor/mattpocock/` (verbatim, version-pinned @ `ed37663`; scope is per-skill — six promoted to personal scope, the other 16 repo-scoped).
  
 ## Layout
  
@@ -12,7 +12,8 @@ claude-skills/
 │   ├── mattpocock/         ← 22 vendored skills + VENDOR-PIN.md (checksums, scope rule)
 │   └── audits/             ← one read-understand-gap audit per vendored skill
 ├── scripts/
-│   ├── sync.sh             ← skills/ → ~/.claude/skills/  (--link for symlink mode)
+│   ├── sync.sh             ← skills/ + promoted vendor skills → ~/.claude/skills/  (--link for symlink mode)
+│   ├── install-vendor.sh   ← the pinned Matt set → a repo's .claude/skills/  (--private to git-exclude)
 │   └── package.sh          ← zip skills into dist/ for claude.ai upload
 └── templates/              ← SKILL.md + project-setup templates
 ```
@@ -30,12 +31,15 @@ Verify: ask Claude Code "which skills do you have?" — the 13 below should appe
  
 Preferred: click **Save skill** when Claude presents a packaged `.skill`. Otherwise `./scripts/package.sh <name>` → Settings → Capabilities → Upload skill (delete the old version first when updating) → toggle **on**. Enabling on claude.ai automatically covers cloud sessions, Cowork, and routines. Enable deliberately per the catalog's enabled-where column — not everything everywhere.
  
-## Install — Matt pipeline into a work repo
+## Install — Matt pipeline into a repo
  
 ```bash
-cp -r vendor/mattpocock/* <work-repo>/.claude/skills/     # copy the SET together (skills detect each other)
+./scripts/install-vendor.sh <repo>              # shared: commit the skills — team + cloud sessions get them
+./scripts/install-vendor.sh --private <repo>    # laptop-only: git-excluded, never reaches the remote (no cloud)
 ```
-Then run `/setup-matt-pocock-skills` **once in that repo** before any pipeline skill — it configures the issue tracker (GitHub / GitLab / local-markdown — local needs no CLI at all), triage labels, and doc layout. Repo-scoped skills win on name clash and cost zero personal context budget.
+Installs the whole pinned set (partial installs refused — skills detect each other; every `SKILL.md` is checksum-verified against `VENDOR-PIN.md` first). Then run `/setup-matt-pocock-skills` **once in that repo** — it configures the issue tracker (GitHub / GitLab / local-markdown — local needs no CLI at all), triage labels, and doc layout. Note: `triage` posts public AI-disclaimed comments — check that's acceptable on work repos. Repo-scoped skills win on name clash and cost zero personal context budget.
+
+Six skills (`teach`, `handoff`, `grilling`, `grill-me`, `resolving-merge-conflicts`, `diagnosing-bugs`) are also promoted to personal scope via `sync.sh`'s `PROMOTED_VENDOR` list — you don't need this script just for those (catalog Decision 30).
  
 ## The skills
  

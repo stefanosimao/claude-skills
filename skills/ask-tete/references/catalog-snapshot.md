@@ -1,4 +1,4 @@
-Snapshot of catalog.md @ 65b9379 — regenerate on catalog changes (skill-forge step 6). Stamp = catalog.md's last-touching commit at generation time, not HEAD; the shipping commit is necessarily one later.
+Snapshot of catalog.md @ 57054ac — regenerate on catalog changes (skill-forge step 6). Stamp = catalog.md's last-touching commit at generation time, not HEAD; the shipping commit is necessarily one later.
 
 Fallback listing only, for when the claude-skills repo is unreachable. Not the catalog: no build log, no wishlist, no ledgers. Status is 🧪 draft-built unless marked otherwise — tested and passing, not yet deployed everywhere.
 
@@ -33,37 +33,43 @@ Fallback listing only, for when the claude-skills repo is unreachable. Not the c
 
 | Skill | Invocation | Purpose | Enabled |
 |---|---|---|---|
-| bonsai-care | manual | species-aware bonsai diagnosis, care, styling (✅ installed) | ai |
-| settimana-enigmistica | manual | Italian puzzle solving; anagram verification script | ai |
-| swiss-voting | manual | federal/cantonal votes, both committees neutrally; never advises a vote | ai |
+| bonsai-care | manual | species-aware bonsai diagnosis, care, styling (✅ installed) | CC + ai |
+| settimana-enigmistica | manual | Italian puzzle solving; anagram verification script | CC + ai |
+| swiss-voting | manual | federal/cantonal votes, both committees neutrally; never advises a vote | CC + ai |
+
+*claude.ai-primary for the last three is a usage note — where you actually reach for them — not a restriction. Everything in `skills/` syncs to Claude Code.*
 
 # Matt vendor layer (22, verbatim @ ed37663)
 
-**Repo-scoped only.** These commands exist ONLY where `vendor/mattpocock/` was copied whole into that repo's `.claude/skills/` and `/setup-matt-pocock-skills` has been run once there. Never account-wide.
+**Availability is per-skill (Decision 30) — three tiers:**
 
-| Phase | Skill | Invocation | Purpose |
-|---|---|---|---|
-| Setup | setup-matt-pocock-skills | user | install the set into a repo — run once, before any flow |
-| Setup | setup-pre-commit | user | pre-commit hooks |
-| Setup | git-guardrails | user | git safety rails |
-| Sharpen | grill-me | user | interview an idea into shape — no codebase |
-| Sharpen | grill-with-docs | user | same, with a codebase; leaves CONTEXT.md + ADRs |
-| Sharpen | grilling | model | the interview discipline itself |
-| Sharpen | research | model | investigate before deciding |
-| Sharpen | prototype | model | runnable answer to a question; reached via handoff |
-| Map | wayfinder | user | huge foggy effort — charts decisions, not deliverables |
-| Map | to-spec | user | decisions → spec |
-| Map | to-tickets | user | spec → tracer-bullet tickets with blocking edges |
-| Map | triage | user | issues piling up (only ones you didn't create) |
-| Build | implement | user | one ticket, fresh context; drives tdd, closes with code-review |
-| Build | tdd | model | the red-green-refactor loop |
-| Review | code-review | user | Fowler smells + spec conformance |
-| Fix | diagnosing-bugs | model | something broken that resists a first glance |
-| Fix | resolving-merge-conflicts | model | conflict resolution |
-| Maintain | improve-codebase-architecture | user | spare-moment upkeep |
-| Vocabulary | domain-modeling | model | domain terms |
-| Vocabulary | codebase-design | model | module shape |
-| Continuity | handoff | user | carry context into a fresh session |
-| Teaching | teach | user | interactive multi-session course in a dedicated folder |
+- **promoted** — synced to personal Claude Code scope like my own skills; available in any directory, no install, no setup. Six skills, marked ⬆ below.
+- **repo-scoped** — exists ONLY where `vendor/mattpocock/` was copied whole into that repo's `.claude/skills/` AND `/setup-matt-pocock-skills` has been run once there. State that precondition with the command, or the handover is dead on arrival.
+- **n.a. on claude.ai** — the whole vendor layer is Claude Code only. None of these exist on web/mobile/desktop, promoted included.
 
-**Main flow:** grill-with-docs / grill-me → (handoff → prototype → handoff) → to-spec → to-tickets → implement per ticket → code-review → extra-code-review. Steps 1–3 stay in one window; each implement starts fresh.
+| Phase | Skill | Tier | Invocation | Purpose |
+|---|---|---|---|---|
+| Setup | setup-matt-pocock-skills | repo-scoped | user | install the set into a repo — run once, before any flow |
+| Setup | setup-pre-commit | repo-scoped | user | pre-commit hooks |
+| Setup | git-guardrails-claude-code | repo-scoped | user | git safety rails (installs a PreToolUse hook) |
+| Sharpen | grill-me | ⬆ promoted | user | interview an idea into shape — no codebase |
+| Sharpen | grill-with-docs | repo-scoped | user | same, with a codebase; leaves CONTEXT.md + ADRs |
+| Sharpen | grilling | ⬆ promoted | model | the interview discipline itself |
+| Sharpen | research | repo-scoped | model | investigate before deciding |
+| Sharpen | prototype | repo-scoped | model | runnable answer to a question; reached via handoff |
+| Map | wayfinder | repo-scoped | user | huge foggy effort — charts decisions, not deliverables |
+| Map | to-spec | repo-scoped | user | decisions → spec |
+| Map | to-tickets | repo-scoped | user | spec → tracer-bullet tickets with blocking edges |
+| Map | triage | repo-scoped | user | issues piling up (only ones you didn't create) |
+| Build | implement | repo-scoped | user | one ticket, fresh context; drives tdd, closes with code-review |
+| Build | tdd | repo-scoped | model | the red-green-refactor loop |
+| Review | code-review | repo-scoped | user | Fowler smells + spec conformance |
+| Fix | diagnosing-bugs | ⬆ promoted | model | something broken that resists a first glance |
+| Fix | resolving-merge-conflicts | ⬆ promoted | model | conflict resolution |
+| Maintain | improve-codebase-architecture | repo-scoped | user | spare-moment upkeep |
+| Vocabulary | domain-modeling | repo-scoped | model | domain terms |
+| Vocabulary | codebase-design | repo-scoped | model | module shape |
+| Continuity | handoff | ⬆ promoted | user | carry context into a fresh session |
+| Teaching | teach | ⬆ promoted | user | interactive multi-session course in a dedicated folder |
+
+**Main flow:** grill-with-docs / grill-me → (handoff → prototype → handoff) → to-spec → to-tickets → implement per ticket → code-review → extra-code-review. Steps 1–3 stay in one window; each implement starts fresh. Everything in that flow except grill-me and handoff is repo-scoped — the install precondition applies.
