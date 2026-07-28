@@ -9,6 +9,7 @@ A skill wrangles determinism out of a stochastic system. Same PROCESS every run 
 - Model-invoked: description sits in the window every turn (context load) but the agent and other skills can reach it.
 - User-invoked: zero context load, but the user pays cognitive load — they must remember it exists. Router skill (ask-tete) is the cure when manuals multiply.
 - Pick model-invocation only when the agent must reach it on its own or another skill must.
+- **Surface capability gates the design: claude.ai skills can't write persistent files.** They advise, never track or log. Anything needing accumulating state routes to a project (or a Claude Code-side skill, which can own a file directly) — the skill keeps the method, the project keeps the data. Settle this before invocation mode: a capture-at-the-moment skill on a surface that can't persist is a skill whose whole value proposition is unavailable. Half the reason calorie-tracking routed to project-setup.
 
 ## Descriptions
 - Front-load the leading word. One trigger per genuinely distinct branch; synonyms of one branch = duplication, collapse them.
