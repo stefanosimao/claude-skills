@@ -159,3 +159,52 @@ Contrast with v1, where the precondition appeared as a *sequencing* note ("run s
 | negotiation-persuasion · society-lenses · software-engineering | PASS + housekeeping | **PASS** (1.0.1) — stubs added, Drive-unreachable caveat added; not re-tested, the change is documentation plus one degradation rule with no trigger surface |
 
 **All 13 skills now PASS with no open findings.** Status stays 🧪 draft-built until deployment (claude.ai upload + Laptop B sync); ✅ installed is a claim about the enabled-where column, not about testing.
+
+---
+
+# Addendum — v1.0.2 re-test (ask-tete bare invocation)
+
+Run: 2026-07-28, after commit `8419bed` + `./scripts/sync.sh`. Two fresh subagents. **Both PASS**, with one caveat on test 2's strength (below) and one real finding surfaced.
+
+## Re-test 1 — bare `/ask-tete` inside the repo · PASS
+
+Prompt: *"ask tete"*
+
+| Criterion | Result |
+|---|---|
+| Lists rather than routes | ✅ Full catalog listing; no attempt to guess a situation |
+| Catalog's own groups | ✅ Meta · Thinking & learning · Programming Layer 2 · Personal, then the Matt layer by phase |
+| Invocation mode + one-line purpose per skill | ✅ Every row |
+| **Live read of catalog.md** | ✅ Transcript shows `Bash` probe of the clone root → `Read /Users/stefanosimao/claude-skills/catalog.md`. Opened with "Listing live from … (current, not snapshot)" |
+| Availability marked in current context | ✅ All 13 personal skills "synced and available here"; **vendor layer correctly reported NOT active** — it checked and found `claude-skills/.claude/skills/` empty, so "none of these commands resolve here yet", with the install steps |
+| No Anthropic built-ins listed | ✅ Zero |
+| Closes with the question | ✅ "So — what are you actually trying to do right now? I'll route it." |
+
+## Re-test 2 — bare `/ask-tete` from a directory outside the clone · PASS (weak, by design)
+
+Prompt ran `cd` to the scratchpad first, then *"ask tete"*.
+
+Result: identical grouped listing, all criteria above met, closing question present — but the transcript shows it **still read `catalog.md` live**, exactly as predicted. The skill's fallback chain checks `~/claude-skills/`, and the clone *is* `/Users/stefanosimao/claude-skills`, so the repo is never unreachable from this machine regardless of cwd. Working-tree renames were ruled out as a test method.
+
+**So the snapshot path was not exercised end-to-end.** What was verified instead, statically:
+
+- `~/.claude/skills/ask-tete/references/catalog-snapshot.md` exists and is reachable from the synced skill (4,375 bytes), header `Snapshot of catalog.md @ 65b9379`.
+- The caveat wording is present in the synced `SKILL.md:56` — fall back to the snapshot "and say so — *listing from snapshot @ `<commit>` — may be stale*".
+- The stamp resolves: `git cat-file -t 65b9379` → `commit`.
+
+**Not to be mistaken for untested:** the fallback gets a genuine production test for free at deployment. Every bare `/ask-tete` on claude.ai runs the snapshot path, because no repo exists there at all. First claude.ai invocation after upload is the real test — check that it names the snapshot and states staleness rather than silently listing.
+
+### Snapshot stamping — resolved during this run
+
+The first attempt stamped HEAD, then chased the correct value via `git commit --amend`, which rewrote the hash and left the stamp pointing at a commit that no longer existed. A file cannot hold the hash of the commit that contains it, so the chase regresses forever. Settled convention, now written into skill-forge step 6: stamp **catalog.md's last-touching commit at generation time** (`git log -1 --format=%h -- catalog.md`, run *before* committing), never HEAD, and never amend to close the one-commit gap — that gap is inherent, not drift.
+
+## Finding — catalog `Enabled` column is behind reality · FIX (bookkeeping)
+
+Test 2 surfaced it unprompted: the catalog marks `bonsai-care`, `settimana-enigmistica` and `swiss-voting` as **claude.ai-only**, but `scripts/sync.sh` copies all 13 skills to `~/.claude/skills/`, so all three are live in Claude Code too. Test 1 hit the same fact and phrased it as "claude.ai-primary, but present on this machine."
+
+The listing is doing exactly the job it was added for — making enabled-where discipline visible — and it immediately caught the column lying. Two ways to reconcile, needs a ruling:
+
+1. **Correct the catalog** — mark the three as CC + ai, since that is what sync.sh actually does.
+2. **Correct the sync** — if those three are deliberately claude.ai-only, `sync.sh` should skip them rather than the catalog being wrong.
+
+Not changed; the answer depends on intent, not on the code.
