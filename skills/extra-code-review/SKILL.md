@@ -22,7 +22,7 @@ The complement to `/code-review` (vendored verbatim): four axes his two don't co
 
 **3. Performance** — only where the diff touches data or hot paths: N+1 queries, algorithmic complexity on hot paths, unbounded memory growth, missing pagination/streaming on data-returning changes, chatty I/O in loops. Every flag passes a back-of-envelope test first (Bentley) — no micro-optimization theater. Grounding: Kleppmann for data-touching changes (systems/IO), Skiena for compute-side complexity and container choice (state it in dominance-order terms, not vibes).
 
-**4. Tests** — does the diff ARRIVE with adequate tests: changed behavior covered at the right seam, regression test present when the diff fixes a bug, test smells (over-mocking, testing implementation not behavior, tautological assertions), test size/flakiness risk (*SWE at Google*), Python-specific smells (Percival, Molina). Reviews the diff's tests; **never re-teaches the TDD loop** — that's `/tdd`.
+**4. Tests** — does the diff ARRIVE with adequate tests: changed behavior covered at the right seam, regression test present when the diff fixes a bug, test smells (over-mocking, testing implementation not behavior, tautological assertions), test size/flakiness risk (*SWE at Google*), Python-specific smells (Percival, Molina). Grounding for the judgement calls: **Khorikov** — score a test on the four pillars, and apply the managed/unmanaged rule to decide whether a mock belongs; **Beck** for why a test exists at all. Note Beck's own concession that **security and concurrency cannot be driven by tests alone** — do not imply otherwise. Reviews the diff's tests; **never re-teaches the TDD loop** — that's `/tdd`.
 
 ## Overlap guards (hard boundaries)
 
@@ -30,7 +30,7 @@ No Fowler smells (his Standards axis owns them). No spec conformance (his Spec a
 
 ## Fetch cascade
 
-Drive: `Skill-Library/extra-code-review/` — owned: `security-engineering`, `the-web-application-hackers-handbook`, `hacking-apis`, plus dedupe copies `refactoring`, `working-effectively-with-legacy-code`; Referenced 📎 (summary local, book in software-engineering/): `code-complete`, `the-pragmatic-programmer`, `designing-data-intensive-applications`, `the-algorithm-design-manual`, `programming-pearls`, `software-engineering-at-google`, `test-driven-development-with-python`, `crafting-test-driven-software-with-python`. Cite chapters from these maps.
+Drive: `Skill-Library/extra-code-review/` — owned: `security-engineering`, `the-web-application-hackers-handbook`, `hacking-apis`, `unit-testing-principles-practices-and-patterns`, plus dedupe copies `refactoring`, `working-effectively-with-legacy-code`; Referenced 📎 (summary local, book in software-engineering/): `code-complete`, `the-pragmatic-programmer`, `designing-data-intensive-applications`, `the-algorithm-design-manual`, `programming-pearls`, `software-engineering-at-google`, `test-driven-development-by-example`, `test-driven-development-with-python`, `crafting-test-driven-software-with-python`. Cite chapters from these maps.
 
 ## Open items (from the gap analysis, verify in Phase-1 testing)
 

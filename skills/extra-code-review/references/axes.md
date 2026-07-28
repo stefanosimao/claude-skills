@@ -29,7 +29,9 @@ Per trust-boundary type touched by the diff:
 - **Back-of-envelope:** for any data-touching change, demand the estimate: rows × bytes × frequency — does it survive 10x? indexes present for new query predicates?
 - **Isolation & retries:** transactions long/wide enough to contend? retry loops without backoff/jitter? work inside transactions that could sit outside?
 
-## TESTS (SWE@Google · Percival: TDD with Python · Molina: Crafting TDD Software)
+## TESTS (Khorikov: Unit Testing P/P/P — the decision framework · Beck: TDD By Example — the foundation · SWE@Google · Percival · Molina)
+- **Is this test worth having? (Khorikov ch. 4):** score it on the four pillars — protection against regressions, resistance to refactoring, fast feedback, maintainability. The first three trade off; **resistance to refactoring is non-negotiable**. A test that fails when behaviour is unchanged is a false positive and a net negative.
+- **Should this have been mocked? (Khorikov §8.2 — the highest-yield rule on this axis):** mock **unmanaged** dependencies (out-of-process, observable by others: message buses, third-party APIs) — do NOT mock **managed** ones (out-of-process but private to the app: your own database). Mocking a managed dependency couples the test to implementation. This is a yes/no rule, not a preference.
 - **Coverage of the change:** every behavioral change has a test at its public seam? bug fix includes the regression test that fails pre-fix?
 - **Test honesty:** assertions on behavior, not implementation (no internal-mock verification, no private-method tests)? expected values independent (no recomputing the formula under test)? would the test fail if the feature broke?
 - **Test smells:** over-mocking (internal collaborators mocked → refactor-brittle); mystery guest (hidden fixtures); eager test (asserting everything); conditional logic inside tests; sleeps instead of synchronization (flakiness); order-dependent tests.
