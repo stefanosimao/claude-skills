@@ -1,6 +1,6 @@
 ---
 name: bonsai-care
-description: Expert guidance for growing, diagnosing, and styling bonsai trees, with deep species-specific coverage starting with Ficus. Use this skill whenever the user asks about bonsai care, watering schedules, leaf drop or yellowing, root rot, repotting, pruning, wiring, styling decisions, pest or disease symptoms, dormancy vs. death, soil mixes, or general health troubleshooting for a bonsai tree — even if they don't use the word "bonsai" explicitly (e.g. "my little ficus tree looks sick," "when should I repot this," "is this dead or just dormant"). Always consult this skill before answering bonsai-related questions, since species-specific physiology (dormancy patterns, root sensitivity, seasonal timing) is easy to get wrong from general plant knowledge alone.
+description: Species-aware bonsai guidance — diagnosis (leaf drop, root rot, dormancy vs. death), care, pruning, wiring, repotting, styling. Ficus-deep. Invoke by name for any bonsai question.
 ---
 
 # Bonsai Care
@@ -87,3 +87,4 @@ When the user mentions a species without an existing reference file, or asks you
 ## Reference files
 
 - `references/ficus.md` — Ficus (most common indoor bonsai species: F. microcarpa/retusa "Ginseng," F. benjamina, F. religiosa, etc.)
+- `references/sources.md` — trusted sources for web verification and new-species research; consult it whenever step 5 or "Adding a new species" sends you to the web.
