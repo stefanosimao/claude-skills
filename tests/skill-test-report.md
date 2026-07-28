@@ -263,7 +263,7 @@ Both drift cases ran against an isolated copy of the vendor tree in the scratchp
 
 ## Prior finding closed
 
-The enabled-where discrepancy raised in the v1.0.2 addendum was resolved as **option 1**: `bonsai-care`, `settimana-enigmistica` and `swiss-voting` are marked **CC ☑ + ai ☑`**. "claude.ai-primary" survives as a *usage* note — where you actually reach for them — not a restriction. `scripts/sync.sh` stays deliberately dumb: it syncs the folder and never reads the catalog.
+The enabled-where discrepancy raised in the v1.0.2 addendum was resolved as **option 1**: `bonsai-care`, `settimana-enigmistica` and `swiss-voting` are marked **CC ☑ + ai ☑**. "claude.ai-primary" survives as a *usage* note — where you actually reach for them — not a restriction. `scripts/sync.sh` stays deliberately dumb: it syncs the folder and never reads the catalog.
 
 ## Open items
 
