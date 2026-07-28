@@ -53,11 +53,11 @@ Excluded: ask-matt, writing-great-skills (reference only), scaffold-exercises, m
 
 ## Library folders → projects (no skill)
 
-*Skill-Library folders built as project knowledge rather than skill sources. Precedent: quantum-computing (below).*
+*Skill-Library folders built as project knowledge rather than skill sources. **These live under `_projects/`, not the Skill-Library root** — precedent: `_projects/good-father`. Note quantum-computing (below) predates that convention and still sits at the root.*
 
 | Folder | Status | Built | Contents | Feeds |
 |---|---|---|---|---|
-| ai-llm-engineering | 💡 | 2026-07-28 | 6 books / 5 summaries (1 skipped by rule: Burkov, is itself a distillation) · triaged from `../CS/AI/` 28→6 · verified: 0 broken refs, counters match, all 5 map spot-checks resolved | **AI project** (pending; queued as project-setup test #2) · **no skill** |
+| `_projects/ai-llm-engineering` | 💡 | 2026-07-28 | 6 books / 5 summaries (1 skipped by rule: Burkov, is itself a distillation) · triaged from `../CS/AI/` 28→6 · verified: 0 broken refs, counters match, all 5 map spot-checks resolved | **AI project** (pending; queued as project-setup test #2) · **no skill** |
 
 ## Removed / repurposed
 
@@ -97,7 +97,7 @@ Baseline (Laptop A, 2026-07-28, CC 2.1.218, Opus 4.8 1M): system 24.7k · built-
 Next measurement: after first bulk sync.
 
 ## Build log
-- 2026-07-28 (latest): **`ai-llm-engineering/` built — first Skill-Library folder created for a project rather than a skill.** Triaged all 28 titles in `../CS/AI/` → 6 pulled, 22 rejected (rejection ledger with reasons lives in the folder's `_sources.md`, same anti-re-litigation convention as the CS cross-check ledger). Anchors: AI Engineering + Designing ML Systems (Huyen), Build an LLM From Scratch (Raschka), LLM Engineer's Handbook, Deep Learning (Goodfellow, scoped), Hundred-Page ML Book (owned, summary skipped by rule). One subagent per book, batch of 5, concurrency ≤5; Opus for Goodfellow (dense/mathematical, two reading passes), Sonnet for the four practical books. No OCR needed on any of the six.
+- 2026-07-28 (latest): **`_projects/ai-llm-engineering/` built — first Skill-Library folder created for a project rather than a skill.** (Built at the Skill-Library root, then **relocated under `_projects/` — that is the correct home**, matching the `good-father` precedent. The move broke every relative path in its `_sources.md` by one level; all 16 repaired and re-verified 2026-07-28.) Triaged all 28 titles in `../CS/AI/` → 6 pulled, 22 rejected (rejection ledger with reasons lives in the folder's `_sources.md`, same anti-re-litigation convention as the CS cross-check ledger). Anchors: AI Engineering + Designing ML Systems (Huyen), Build an LLM From Scratch (Raschka), LLM Engineer's Handbook, Deep Learning (Goodfellow, scoped), Hundred-Page ML Book (owned, summary skipped by rule). One subagent per book, batch of 5, concurrency ≤5; Opus for Goodfellow (dense/mathematical, two reading passes), Sonnet for the four practical books. No OCR needed on any of the six.
   - **Correction banked:** the earlier claim that Goodfellow is "entirely pre-transformer — no attention" is **wrong on attention**. §12.4.5.1 defines attention correctly and §10.12 identifies NTM addressing with Bahdanau attention; also §12.1.4 = knowledge distillation, §12.1.5 = sparse MoE, §12.1.6 = quantisation, §10.2.1 = exposure bias. Pre-*transformer*, not pre-*attention* — the handoff to Raschka is one page wide. Caught because the no-seeded-handles rule left the agent free to contradict the brief.
   - **Process fixes banked (apply to every future summarization wave; `summaries-task-v2.md` stays unedited by convention):**
     1. **Scratch files must be namespaced per book-slug** (`<book-slug>/full_text.txt`, never a generic name). Two parallel subagents in this wave both wrote `full_text.txt` to the shared scratchpad and one silently overwrote the other mid-read. The affected agent noticed and re-extracted in isolation; one that did not notice would have summarized the wrong book with no visible symptom. A cross-contamination probe over all completed summaries passed 3/3 own-markers and 0 foreign — no rework needed.
