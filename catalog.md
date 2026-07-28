@@ -10,7 +10,7 @@
 
 | Skill | Ver | Status | Invocation | CC | ai | repo | Notes |
 |---|---|---|---|---|---|---|---|
-| bonsai-care | 1.0 | ✅ | manual | ☐ | ☑ | ☐ | improvement queue: split refs, add bibliography, re-test triggers |
+| bonsai-care | 1.1 | ✅ | manual | ☐ | ☑ | ☐ | improvement queue: split refs, add bibliography, re-test triggers |
 
 ## Meta (build first — Phase 2)
 
