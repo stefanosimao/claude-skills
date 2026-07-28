@@ -58,9 +58,6 @@ Excluded: ask-matt, writing-great-skills (reference only), scaffold-exercises, m
 | interview-answer-coach | ⛔ | full rebuild planned via skill-forge (fresh intent capture) |
 | quantum-computing | 📦 | content → QC project knowledge; not installed as skill |
 
-## Parked
-
-rag-eval · fastapi-orchestration-scaffold · homelab-ha-config · intern-review · codebase-memory-mcp (infra trial, post-Phase 0, `--skip-config`)
 
 ## Wishlist aggregate (from Skill-Library `_sources.md`)
 
