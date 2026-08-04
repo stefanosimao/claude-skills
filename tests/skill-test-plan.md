@@ -1,5 +1,8 @@
 # Skill Test Plan — v1 (post-build verification)
 
+> ⛔ **SUPERSEDED BY [v3](skill-test-plan-v3.md). Do not run this plan.**
+> Kept as the record of what was actually tested on 2026-07-28, when the catalog held 13 skills. **Its numbers are accurate as history and wrong as instruction** — §0 asks you to confirm 13 skills and calls a shortfall a BLOCKER, so running it today raises a false BLOCKER on the first step against a 14-skill catalog. The count is deliberately left at 13: correcting it would falsify what this run measured. **General rule for a document that is both record and instruction: mark its status, don't rewrite its content.**
+
 **Feed this to Claude Code** from inside the `claude-skills` repo clone, in a FRESH session, after `git pull && ./scripts/sync.sh` and a restart (so the synced skills are actually loaded). Test only — fix nothing without reporting first. The skills under test are the 13 in `skills/`; the vendor layer is out of scope (verbatim, already audited).
 
 ## 0. Setup check

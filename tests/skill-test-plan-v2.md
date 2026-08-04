@@ -1,5 +1,8 @@
 # Skill Test Plan — v2 (post-first-run maintenance)
 
+> ⛔ **SUPERSEDED BY [v3](skill-test-plan-v3.md). Do not run this plan.**
+> Kept as the record of the v2 method and its corrections, written when the catalog held 13 skills. **Its numbers are accurate as history and wrong as instruction** — §0 asks you to confirm 13 skills and calls a shortfall a BLOCKER, so running it today raises a false BLOCKER on the first step against a 14-skill catalog. It also predates finding DOC-3: `teach`, `handoff` and `grill-me` are `disable-model-invocation: true` and never enter a model's skill list, so §0's listing check would raise a second false BLOCKER even at the right count. The count is deliberately left at 13: correcting it would falsify what this plan specified. **General rule for a document that is both record and instruction: mark its status, don't rewrite its content.**
+
 **Feed this to Claude Code** from inside the `claude-skills` repo clone, in a FRESH session, after `git pull && ./scripts/sync.sh` and a restart (so the synced skills are actually loaded). Test only — fix nothing without reporting first. The skills under test are the 13 in `skills/`; the vendor layer is out of scope (verbatim, already audited).
 
 **v2 changes (from test report v1):** §3 expectation corrected to `study` (NOTE-1); ask-tete (c) expectation corrected to project-setup-primary (NOTE-2); swiss-voting gains a delivery sub-case for the symmetric both-committees contract; measurement method standardized — skill firing is verified by grepping each subagent's JSONL transcript for `Skill` tool calls, never inferred from prose.
