@@ -6,6 +6,7 @@ Source of truth for my Claude Skills. Designed in the **Skills Hub** claude.ai p
  
 ```
 claude-skills/
+├── CLAUDE.md               ← house rules loaded into every session here: how work is reported, git conventions, what goes stale
 ├── catalog.md              ← living inventory: status, version, invocation, enabled-where
 ├── skills/                 ← my 14 skills (one folder each: SKILL.md + references/ + scripts/)
 ├── vendor/
