@@ -1,6 +1,8 @@
-Snapshot of catalog.md @ 2dbbf47 — regenerate on catalog changes (skill-forge step 6). Stamp = catalog.md's last-touching commit at generation time, not HEAD; the shipping commit is necessarily one later.
+Snapshot of catalog.md @ 8f9932e — regenerate on catalog changes (skill-forge step 6). Stamp = catalog.md's last-touching commit at generation time, not HEAD; the shipping commit is necessarily one later.
 
-Fallback listing only, for when the claude-skills repo is unreachable. Not the catalog: no build log, no wishlist, no ledgers. Status is 🧪 draft-built unless marked otherwise — tested and passing, not yet deployed everywhere.
+Fallback listing only, for when the claude-skills repo is unreachable. Not the catalog: no build log, no wishlist, no ledgers.
+
+**Status (2026-08-04): all 14 are ✅ installed on Claude Code** — verified byte-identical to `~/.claude/skills/`, not merely present — **and ✅ is a per-machine claim.** On a machine that has not been through `docs/new-machine-setup.md`, none of this is installed regardless of what this file says, because hooks, `~/.claude/skills/` and the shell profile all live outside git. **The claude.ai re-upload is still outstanding**, so on rows marked `CC + ai` the `ai` half is pending rather than done — if asked for one of these on claude.ai, check before promising it.
 
 # My skills
 
@@ -41,7 +43,7 @@ Fallback listing only, for when the claude-skills repo is unreachable. Not the c
 
 | Skill | Invocation | Purpose | Enabled |
 |---|---|---|---|
-| bonsai-care | manual | species-aware bonsai diagnosis, care, styling (✅ installed) | CC + ai |
+| bonsai-care | manual | species-aware bonsai diagnosis, care, styling | CC + ai |
 | settimana-enigmistica | manual | Italian puzzle solving; anagram verification script | CC + ai |
 | swiss-voting | manual | federal/cantonal votes, both committees neutrally; never advises a vote | CC + ai |
 
@@ -59,7 +61,7 @@ Fallback listing only, for when the claude-skills repo is unreachable. Not the c
 |---|---|---|---|---|
 | Setup | setup-matt-pocock-skills | repo-scoped | user | install the set into a repo — run once, before any flow |
 | Setup | setup-pre-commit | repo-scoped | user | pre-commit hooks |
-| Setup | git-guardrails-claude-code | repo-scoped | user | git safety rails (installs a PreToolUse hook) |
+| Setup | git-guardrails-claude-code | repo-scoped | user | git safety rails — installs a PreToolUse hook. Run at **global** scope, once per machine (Decision 32); the hook lives in `~/.claude/`, so it never propagates with a repo. Blocks the habitual form of a destructive command, **not** a `git -C <path>` variant — say that rather than calling it a containment boundary |
 | Sharpen | grill-me | ⬆ promoted | user | interview an idea into shape — no codebase |
 | Sharpen | grill-with-docs | repo-scoped | user | same, with a codebase; leaves CONTEXT.md + ADRs |
 | Sharpen | grilling | ⬆ promoted | model | the interview discipline itself |
