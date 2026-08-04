@@ -160,6 +160,8 @@ Contrast with v1, where the precondition appeared as a *sequencing* note ("run s
 
 **All 13 skills now PASS with no open findings.** Status stays 🧪 draft-built until deployment (claude.ai upload + Laptop B sync); ✅ installed is a claim about the enabled-where column, not about testing.
 
+> **Amendment 2026-08-04** (appended, not rewritten — the line above records what was true when the report ran). The "Laptop B sync" half of that gate is **withdrawn**: it tracked a machine's state rather than a property of these skills, and it blocked the 🧪→✅ sweep on a machine that may never be opened. Machine currency is now a procedure, [`docs/new-machine-setup.md`](../docs/new-machine-setup.md), and ✅ is defined per-machine (see the catalog legend). The **claude.ai upload half stands** and is still outstanding. The sweep ran on 2026-08-04 against Claude Code evidence only; the sentence's closing clause — that ✅ is a claim about enabled-where and not about testing — is unchanged and is exactly why the claude.ai half still gates.
+
 ---
 
 # Addendum — v1.0.2 re-test (ask-tete bare invocation)
