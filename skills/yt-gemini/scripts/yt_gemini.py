@@ -17,8 +17,14 @@ Manual invocation, for a URL and a question you typed yourself:
     python3 yt_gemini.py "<youtube_url>" "<question>"
 
 Requires GEMINI_API_KEY in the environment. Never hardcode it in this file —
-export it in your shell profile (~/.zshrc, ~/.bashrc). That is the only
+export it in ~/.zshenv (or ~/.bash_profile for bash). That is the only
 location this skill assumes.
+
+**~/.zshenv, not ~/.zshrc.** zsh sources .zshrc for *interactive* shells only.
+Claude Code and the Bash children it spawns are not guaranteed to be
+interactive, and a GUI-launched editor or agent may never read .zshrc at all.
+.zshenv is sourced for every zsh invocation, which is why the key reliably
+reaches this script by process inheritance. Verified 2026-08-04.
 
 Do NOT assume a settings file is git-excluded for you. `.claude/settings.local.json`
 is ignored on the author's machine because of a *global* gitignore rule

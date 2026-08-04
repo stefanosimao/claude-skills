@@ -311,5 +311,5 @@ First run of the four axes against my own code rather than a vendor skill. Fixed
 
 ## Open items
 
-- **Process-inheritance path still unproven** (above). The one test that matters for the Surface section.
+- ~~**Process-inheritance path still unproven**~~ — **CLOSED 2026-08-04.** Export written to `~/.zshenv` at 16:37:40; this Claude Code session started at 16:41:54; no `source`/`export` ran in the transcript; the bridge answered a frames-only question on the "Me at the zoo" fixture at exit 0, matching the recorded run. Also the first live exercise of the stdin heredoc invocation against the real API — accepted. **Correction folded in:** the key lives in `~/.zshenv`, not the `~/.zshrc` the docs named. zsh reads `.zshrc` for interactive shells only; `.zshenv` for every invocation, which is why inheritance works. Both the docstring and the Surface section now name `.zshenv` and say why. Neither `~/.claude/settings.json` nor the repo's `.claude/settings.local.json` carries the key (empty `env` blocks), so inheritance is the only path in play.
 - **`/code-review` was not run alongside.** It is repo-scoped only (Decision 30) and absent from `~/.claude/skills/`; this repo has no `docs/agents/`, so its Spec axis would have skipped and reported "no spec available" while Standards still ran. Not a failure — a scope fact, verified rather than assumed.

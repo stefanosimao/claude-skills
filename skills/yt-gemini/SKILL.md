@@ -40,7 +40,11 @@ State the answer as Gemini's read, not Claude's own observation — Claude never
 
 ## Surface
 
-**Local Claude Code only.** The key arrives by process inheritance — exported in the shell profile, inherited by Claude Code and every Bash child it spawns — so it never enters the repo or the context window. Three surfaces can't support that:
+**Local Claude Code only.** The key arrives by process inheritance — exported in **`~/.zshenv`**, inherited by Claude Code and every Bash child it spawns — so it never enters the repo or the context window. **Proven end-to-end 2026-08-04:** export written 16:37:40, session started 16:41:54, bridge answered a frames-only question with no sourcing step anywhere in the transcript.
+
+**Use `~/.zshenv`, not `~/.zshrc`.** zsh reads `.zshrc` for interactive shells only; `.zshenv` is read for every invocation. Claude Code's Bash children are not guaranteed to be interactive, so `.zshrc` is the fragile choice even though it is the one usually recommended.
+
+Three surfaces can't support that:
 
 - **claude.ai** — sandboxed code execution has no network route to Gemini's API.
 - **Cloud sessions** — no secrets store; the environment-variable field is readable by anyone with access to that environment, so the key doesn't belong there.
