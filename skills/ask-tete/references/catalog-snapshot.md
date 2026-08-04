@@ -1,8 +1,8 @@
-Snapshot of catalog.md @ 4a245b9 — regenerate on catalog changes (skill-forge step 6). Stamp = catalog.md's last-touching commit at generation time, not HEAD; the shipping commit is necessarily one later.
+Snapshot of catalog.md @ 2b82269 — regenerate on catalog changes (skill-forge step 6). Stamp = catalog.md's last-touching commit at generation time, not HEAD; the shipping commit is necessarily one later.
 
 Fallback listing only, for when the claude-skills repo is unreachable. Not the catalog: no build log, no wishlist, no ledgers.
 
-**Status (2026-08-04): all 14 are ✅ installed on Claude Code** — verified byte-identical to `~/.claude/skills/`, not merely present — **and ✅ is a per-machine claim.** On a machine that has not been through `docs/new-machine-setup.md`, none of this is installed regardless of what this file says, because hooks, `~/.claude/skills/` and the shell profile all live outside git. **The claude.ai re-upload is still outstanding**, so on rows marked `CC + ai` the `ai` half is pending rather than done — if asked for one of these on claude.ai, check before promising it.
+**Status (2026-08-04): all 14 are ✅ installed on Claude Code** — verified byte-identical to `~/.claude/skills/`, not merely present — **and ✅ is a per-machine claim.** On a machine that has not been through `docs/new-machine-setup.md`, none of this is installed regardless of what this file says, because hooks, `~/.claude/skills/` and the shell profile all live outside git. **The claude.ai uploads are done** — the 12 eligible skills were uploaded at post-bump versions, so rows marked `CC + ai` are live on both surfaces. Two exceptions to keep straight: `yt-gemini` is **CC local only** and never goes to claude.ai, and `bonsai-care` was already live and was not re-uploaded (that one rests on recollection — nothing here can read account state).
 
 # My skills
 
