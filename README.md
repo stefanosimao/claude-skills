@@ -161,4 +161,4 @@ The vendored 7-phase workflow: **Idea → Research → Prototype → PRD → Kan
 - Matt's skills stay VERBATIM; my complements live alongside (`extra-*` naming), obeying his invocation rules (orchestrators never invoke orchestrators).
 - Third-party skills are never installed unaudited: clone → line-by-line review → adapt → only then enter this repo.
 - Book-grounded skills fetch depth from Google Drive `Skill-Library/<folder>/_summaries/` by filename search (folder browsing doesn't work; verify by content, never modifiedTime).
-- After any change: bump version in `catalog.md`, tick enabled-where, propagate (push → sync laptops → claude.ai re-save).
+- After any change: bump version in `catalog.md`, tick enabled-where, propagate (push → `git pull && ./scripts/sync.sh` on each machine → claude.ai re-save). A machine that has never been set up needs the full runbook, not just the pull: [`docs/new-machine-setup.md`](docs/new-machine-setup.md).
