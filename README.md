@@ -15,6 +15,20 @@ claude-skills/
 │   ├── sync.sh             ← skills/ + promoted vendor skills → ~/.claude/skills/  (--link for symlink mode)
 │   ├── install-vendor.sh   ← the pinned Matt set → a repo's .claude/skills/  (--private to git-exclude)
 │   └── package.sh          ← zip skills into dist/ for claude.ai upload
+├── docs/                   ← every prose doc; this repo is the single source of truth (catalog Decision 34)
+│   │  ── procedures you run
+│   ├── new-machine-setup.md            ← get a machine current: clone → key → sync → hook → vendor → audit
+│   ├── 07-operators-guide-v3.2.md      ← the manual parts: release cycle, install, release checklist
+│   ├── mirror-export.md                ← repo → Skills Hub mirror: which 3 files, how they're stamped
+│   ├── workflow-playbook-v1.2.md       ← which skill when: 3 walked-through scenarios + cheat sheet
+│   │  ── Skill-Library procedures (fed to Claude Code from inside the reMarkable library, not from here)
+│   ├── summaries-task-v2.md            ← batch summarization: template, rules, wave order
+│   ├── add-new-book-v2.md              ← single-book intake, start to Drive upload
+│   ├── batch-verification-template.md  ← audit a finished wave (fresh session, never the one that wrote it)
+│   │  ── plans and design records (history: why things are the way they are)
+│   ├── skills-hub-plan-v5.2.md         ← Hub master plan: architecture, roadmap, numbered decisions
+│   ├── extra-code-review-gap-analysis.md  ← why that skill has exactly those 4 axes; re-run on a vendor pin bump
+│   └── enrichment-quarries-superpowers-understand-anything.md  ← audited external skill sources, with verdicts
 └── templates/              ← SKILL.md + project-setup templates
 ```
  
