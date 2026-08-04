@@ -1,6 +1,6 @@
 # Skill Test Plan — v3
 
-**Feed this to Claude Code** from the `claude-skills` repo clone, fresh session, after `git pull && ./scripts/sync.sh` + restart. Covers regression runs on MY 13 skills; §M's conventions also govern any vendor re-test. Vendor bodies are never edited regardless of findings.
+**Feed this to Claude Code** from the `claude-skills` repo clone, fresh session, after `git pull && ./scripts/sync.sh` + restart. Covers regression runs on MY 14 skills; §M's conventions also govern any vendor re-test. Vendor bodies are never edited regardless of findings.
 
 **v3 changes (from vendor validation 2026-08-03):** measurement rule widened — a skill counts as consumed via `Skill` tool call **OR** `Read` of its `*/SKILL.md` (NOTE-T2-2: tdd was consumed by Read under implement's delegation; the old grep under-reports); §0 corrected — `disable-model-invocation: true` skills never appear in skill listings, check them by invoking (DOC-3); harness requirements added (DOC-1: headless runs need `--permission-mode acceptEdits` + explicit `--allowedTools`, else every write-capable skill looks broken; heredoc before `claude -p` needs `< /dev/null`); "commits to branch" criteria reworded to "commits to the **current** branch" (NOTE-T2-1); headless-session-per-test is now the standard method for user-invoked skills (subagents cannot type slash commands).
 
@@ -14,9 +14,10 @@
 
 ## 0. Setup check
 
-1. `ls ~/.claude/skills/` → 19 folders (13 + 6 promoted).
+1. `ls ~/.claude/skills/` → 20 folders (14 + 6 promoted).
 2. Listing check applies to model-invoked skills only. `teach`, `handoff`, `grill-me` are `disable-model-invocation: true` — verify by **invoking** each (a trivial prompt), not by listing. Absence from a skill list is not a failure.
 3. `python3 skills/settimana-enigmistica/scripts/anagram.py "attore" --check "teatro"` → YES.
+4. `env -u GEMINI_API_KEY python3 skills/yt-gemini/scripts/yt_gemini.py "https://youtu.be/X" "q"` → exit 1, stderr names `GEMINI_API_KEY`, no network call. Deterministic and keyless by construction — the guard runs before the request is built, so this asserts the Step 1 contract without spending quota or reaching Gemini. **Never add a live-call smoke test here:** an unmanaged out-of-process dependency on a 120 s timeout is Large and flaky, and belongs in a manual run, not the setup check.
 
 ## 1. Trigger tests (auto skills) — routing matrix
 

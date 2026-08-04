@@ -2,3 +2,6 @@ dist/
 .DS_Store
 __pycache__/
 *.pyc
+# Not excluded by Claude Code — only by a global rule on one laptop. Pinned
+# here so a clone anywhere cannot commit a key someone put in it.
+.claude/settings.local.json

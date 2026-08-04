@@ -270,3 +270,46 @@ The enabled-where discrepancy raised in the v1.0.2 addendum was resolved as **op
 - **`/context` measurement pending** — must be run by the user; the build-log entry says *pending* rather than carrying a fabricated number. Expected delta is low hundreds of tokens: only the six frontmatter descriptions load at rest (~600 characters), not the ~21 KB of bodies.
 - **`git-guardrails-claude-code`** — deliberately not promoted. Separate one-time action: run it once and install its PreToolUse hook globally. Deterministic enforcement beats a resident skill description.
 - **Deployment unchanged for claude.ai:** the vendor layer is Claude Code only, promoted six included. Nothing to upload there from this patch beyond ask-tete 1.0.3.
+
+---
+
+# Addendum — yt-gemini (2026-08-04): step-6 run filed, plus `/extra-code-review` fixes
+
+**Why this addendum exists.** The step-6 run below was executed on 2026-08-04 and passed 4/4, but was written only into `catalog.md`'s build log. §5 designates `tests/skill-test-report.md`, so the regression sweep never saw it and the plan's scope line still read "MY 13 skills". Filing it here closes that gap; the plan is now at 14 and carries a §0.3 smoke line for `yt_gemini.py`. **No re-run — this is the original run, relocated to where the standard says it lives.** The `/extra-code-review` section that follows is new work.
+
+## Step-6 run — 4/4 PASS, transcript-verified per §M
+
+| # | Test | Result |
+|---|---|---|
+| 1 | **Should-fire, end to end.** "Me at the zoo" (`jNQXAC9IVRw`, 19 s, permanently public) + a frames-only question: what the person is wearing and what stands behind him — answerable from neither title, description nor captions. | **PASS.** Transcript shows a `Skill` call naming `yt-gemini`; bridge ran from the **synced** `~/.claude/skills/` copy, exit 0; reply opened by attributing to Gemini and stating Claude never saw the video. |
+| 2 | **Control.** "Here's a YouTube link, just shorten it for me." | **PASS, no false positive.** The only `yt-gemini` string in that transcript is the injected skill-listing attachment — loaded, available, stayed out of the way. |
+| 3 | **Error path.** Key unset. | **PASS.** Exit 1, "not set" message, no key material. |
+| 4 | **Trigger collision.** | **PASS.** Exactly one `Skill` call, zero other `SKILL.md` reads. Byte-comparison of the live key against the full transcript: the value never appeared. |
+
+**Caveat carried forward, still open:** the test session predated the `~/.zshrc` export, so the harness sourced the profile explicitly. The API path and the `x-goog-api-key` header are proven; **the process-inheritance path — the mechanism the whole Surface section rests on — is not**, and stays unproven until a session started *after* the export runs the skill with no workaround. Also noted: the agent echoed the key's character *length* while diagnosing that. Not the value, but the standing rule is never to echo the key, and length is a weak disclosure worth not repeating.
+
+## `/extra-code-review` — 6 findings fixed, each reproduced against a local fixture
+
+First run of the four axes against my own code rather than a vendor skill. Fixed point `cc002b2^`; scope was `yt_gemini.py` **plus** `SKILL.md`.
+
+| Finding | Before | After |
+|---|---|---|
+| **SEC-1** injection via the invocation template (`SKILL.md` Step 2) | argv form under double quotes expands `$(...)` and backticks — verified: `$(echo INJECTED_OK)` executed | stdin via single-quoted heredoc; payload arrives **unexecuted and byte-intact** |
+| **SEC-2** false git-exclusion claim in the docstring | `.claude/settings.local.json` ignored only by `~/.config/git/ignore` on one laptop | docstring corrected; path pinned in the repo's own `.gitignore` (`git check-ignore` now reports `.gitignore:7`) |
+| **DEF-1** stall after response headers | bare `TimeoutError` traceback (an `OSError`, not a `URLError`) | `rc=1`, message naming the long-video cause |
+| **DEF-2** unguarded decode/parse | HTML error page with a 200 → `JSONDecodeError` traceback | `rc=1` + 500-byte preview |
+| **DEF-3** narrow catch set | `"parts": null`, JSON-array body, bare-string parts → tracebacks | `rc=1`, "Unexpected response shape" |
+| **SEC-5** `--model` raw in the request path | `bad/../x` reached a different API method | refused before any network call |
+
+**Both directions tested on SEC-1, and that is the point.** Asserting only "the payload did not execute" would have passed a fix that silently mangled legitimate questions containing `$` or a backtick. The assertion is `sent == q` **and** no side effect — testing the right property, not merely testing the fix.
+
+**Method note worth keeping: the worst finding was in the prose, not the Python.** Reviewing `yt_gemini.py` alone would have passed the injection hole, because the vulnerable artefact was the SKILL.md text instructing an agent how to build the command. **A skill's prose is executable; a review that scopes only `scripts/` reviews half the artefact.** Recorded in `extra-code-review`'s Security axis so it isn't rediscovered.
+
+**Axis disagreement preserved, per the no-merging design.** Performance and defects both flagged `timeout=120` and disagreed on what it *is* — billed-but-discarded ingest vs. an uncaught exception. Both true of one line; a merged report would have kept one and lost the other.
+
+**Not taken — decisions, not oversights.** Empty-`text`-exits-0 (fix belongs with the `SAFETY`/`MAX_TOKENS` relabelling); `file_uri` validation (confused-deputy on my own Files-API assets, not network SSRF); disabling cross-host redirects (not attacker-triggerable while Google does not 30x).
+
+## Open items
+
+- **Process-inheritance path still unproven** (above). The one test that matters for the Surface section.
+- **`/code-review` was not run alongside.** It is repo-scoped only (Decision 30) and absent from `~/.claude/skills/`; this repo has no `docs/agents/`, so its Spec axis would have skipped and reported "no spec available" while Standards still ran. Not a failure — a scope fact, verified rather than assumed.
