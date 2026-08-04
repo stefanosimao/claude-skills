@@ -7,7 +7,7 @@ Source of truth for my Claude Skills. Designed in the **Skills Hub** claude.ai p
 ```
 claude-skills/
 ├── catalog.md              ← living inventory: status, version, invocation, enabled-where
-├── skills/                 ← my 13 skills (one folder each: SKILL.md + references/ + scripts/)
+├── skills/                 ← my 14 skills (one folder each: SKILL.md + references/ + scripts/)
 ├── vendor/
 │   ├── mattpocock/         ← 22 vendored skills + VENDOR-PIN.md (checksums, scope rule)
 │   └── audits/             ← one read-understand-gap audit per vendored skill
@@ -25,7 +25,7 @@ git clone https://github.com/stefanosimao/claude-skills.git
 cd claude-skills
 ./scripts/sync.sh            # installs skills/ → ~/.claude/skills/
 ```
-Verify: ask Claude Code "which skills do you have?" — the 13 below should appear. Update later with `git pull && ./scripts/sync.sh`. Single skill: `npx skills add stefanosimao/claude-skills@<skill-name>` (private repo may need auth; clone+sync always works).
+Verify: ask Claude Code "which skills do you have?" — the 14 below should appear. Update later with `git pull && ./scripts/sync.sh`. Single skill: `npx skills add stefanosimao/claude-skills@<skill-name>` (private repo may need auth; clone+sync always works).
  
 ## Install — claude.ai (web / mobile / desktop)
  
@@ -65,6 +65,11 @@ Six skills (`teach`, `handoff`, `grilling`, `grill-me`, `resolving-merge-conflic
 | **software-engineering** | auto (narrow) + callable | Canon consultant at any pipeline stage: design/testing/data/legacy questions answered with book+chapter citations; defers to /codebase-design vocabulary inside the pipeline. |
 | **extra-code-review** | manual | The 4 axes /code-review doesn't do — security, defects, performance, tests — same skeleton (pinned diff, parallel sub-agents, <400 words, no reranking), run alongside. |
  
+### Tools & bridges
+| Skill | Invocation | What it does |
+|---|---|---|
+| **yt-gemini** | auto | Hands a YouTube URL + a question to Gemini's native video API and folds the answer back **as Gemini's read, not Claude's own observation** — watching a video is the one thing Claude can't do natively. Stdlib-only bridge script, `GEMINI_API_KEY` inherited from the shell. **Local Claude Code only:** claude.ai's sandbox has no egress to Gemini's API; cloud sessions have no secrets store *and* see only skills committed to `.claude/skills/`. |
+
 ### Personal
 | Skill | Invocation | What it does |
 |---|---|---|

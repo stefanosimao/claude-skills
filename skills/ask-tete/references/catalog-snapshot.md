@@ -1,4 +1,4 @@
-Snapshot of catalog.md @ 57054ac — regenerate on catalog changes (skill-forge step 6). Stamp = catalog.md's last-touching commit at generation time, not HEAD; the shipping commit is necessarily one later.
+Snapshot of catalog.md @ 2dbbf47 — regenerate on catalog changes (skill-forge step 6). Stamp = catalog.md's last-touching commit at generation time, not HEAD; the shipping commit is necessarily one later.
 
 Fallback listing only, for when the claude-skills repo is unreachable. Not the catalog: no build log, no wishlist, no ledgers. Status is 🧪 draft-built unless marked otherwise — tested and passing, not yet deployed everywhere.
 
@@ -28,6 +28,14 @@ Fallback listing only, for when the claude-skills repo is unreachable. Not the c
 |---|---|---|---|
 | software-engineering | auto(narrow) + callable | canon consultant — design/architecture questions with chapter citations | CC + ai |
 | extra-code-review | manual (orchestrator) | the 4 axes /code-review doesn't cover: security, defects, performance, tests | CC + ai |
+
+## Tools & bridges
+
+| Skill | Invocation | Purpose | Enabled |
+|---|---|---|---|
+| yt-gemini | auto | what's actually IN a YouTube video — visuals and audio, not captions; answer attributed to Gemini | **CC local only** |
+
+*⚠️ **yt-gemini is the one skill in this catalog that is not available everywhere CC appears.** `CC local only` = local Claude Code on a laptop. NOT claude.ai (sandbox has no network egress to Gemini's API), and NOT cloud sessions / Claude Code on the web (no secrets store for `GEMINI_API_KEY`, and they load only skills committed to `.claude/skills/` — this one arrives via `sync.sh` → `~/.claude/skills/`). **Never recommend it outside local Claude Code.** Elsewhere, say plainly that the bridge can't run there and offer the alternative: a transcript-only reading, which covers spoken content but not what is shown. It also needs `GEMINI_API_KEY` exported in the shell profile — if that's missing, say so rather than letting the call fail.*
 
 ## Personal
 
